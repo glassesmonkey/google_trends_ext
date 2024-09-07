@@ -2,7 +2,7 @@
 {
   "manifest_version": 2,
   "name": "Google Trends Extension",
-  "version": "1.0",
+  "version": "11.0",
   "description": "Add comparison and search buttons to Google Trends",
   "permissions": [
     "https://trends.google.com/*"
