@@ -1,0 +1,17 @@
+// manifest.json
+{
+  "manifest_version": 2,
+  "name": "Google Trends Extension",
+  "version": "1.0",
+  "description": "Add comparison and search buttons to Google Trends",
+  "permissions": [
+    "https://trends.google.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://trends.google.com/trends/explore*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}

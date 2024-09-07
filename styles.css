@@ -1,0 +1,26 @@
+.rising-value {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.custom-button {
+  padding: 2px 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  font-size: 10px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.custom-button:hover {
+  background-color: #e8e8e8;
+  border-color: #999;
+}
