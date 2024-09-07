@@ -1,46 +1,19 @@
-
-// styles.css
-
 // content.js
 function addButtons() {
   const items = document.querySelectorAll('.item');
   items.forEach(item => {
     const risingValueDiv = item.querySelector('.rising-value');
     if (risingValueDiv && !risingValueDiv.querySelector('.custom-buttons')) {
-      const labelText = item.querySelector('.label-text span');
-      if (labelText) {
-        const text = labelText.textContent.trim();
+      const buttonsDiv = document.createElement('div');
+      buttonsDiv.className = 'custom-buttons';
 
-        const buttonsDiv = document.createElement('div');
-        buttonsDiv.className = 'custom-buttons';
+      const compareButton = createButton('对比GPTS', () => handleButtonClick(item, 'compare'));
+      const searchButton = createButton('搜索', () => handleButtonClick(item, 'search'));
 
-        const compareButton = createButton('对比GPTS', () => {
-          const url = `https://trends.google.com/trends/explore?q=${encodeURIComponent(text)},gpts`;
-          window.open(url, '_blank');
-        });
+      buttonsDiv.appendChild(compareButton);
+      buttonsDiv.appendChild(searchButton);
 
-        const searchButton = createButton('搜索', () => {
-          const url = `https://www.google.com.hk/search?q=${encodeURIComponent(text)}`;
-          window.open(url, '_blank');
-        });
-
-        buttonsDiv.appendChild(compareButton);
-        buttonsDiv.appendChild(searchButton);
-
-        // 保存原始文本
-        const originalText = risingValueDiv.textContent.trim();
-        
-        // 清空 rising-value div
-        risingValueDiv.innerHTML = '';
-        
-        // 创建一个新的 span 来包含原始文本
-        const textSpan = document.createElement('span');
-        textSpan.textContent = originalText;
-        
-        // 将原始文本和按钮添加到 rising-value div
-        risingValueDiv.appendChild(textSpan);
-        risingValueDiv.appendChild(buttonsDiv);
-      }
+      risingValueDiv.appendChild(buttonsDiv);
     }
   });
 }
@@ -57,6 +30,32 @@ function createButton(text, onClick) {
   return button;
 }
 
-// Run the function initially and then every 2 seconds to catch dynamically loaded content
-addButtons();
-setInterval(addButtons, 2000);
+function handleButtonClick(item, action) {
+  const labelText = item.querySelector('.label-text span');
+  if (labelText) {
+    const text = labelText.textContent.trim();
+    if (action === 'compare') {
+      const url = `https://trends.google.com/trends/explore?q=${encodeURIComponent(text)},gpts`;
+      window.open(url, '_blank');
+    } else if (action === 'search') {
+      const url = `https://www.google.com.hk/search?q=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+  }
+}
+
+// 初始运行
+function initializeExtension() {
+  addButtons();
+  // 每秒检查一次是否有新的项目需要添加按钮
+  setInterval(addButtons, 1000);
+}
+
+// 等待页面加载完成后初始化
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeExtension);
+} else {
+  initializeExtension();
+}
+
+// styles.css 保持不变
